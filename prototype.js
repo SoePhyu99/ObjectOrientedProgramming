@@ -28,14 +28,42 @@ function HtmlElement() {
         console.log('click');
     }
 }
-function HtmlSelectElement() {
+function HtmlSelectElement(items = []) {
     this.addItem = (item) => this.items.push(item);
-    this.items = [];
+    this.items = items;
     this.removeItem = (item) => {
         if (this.items.includes(item)) {
             this.items.splice(this.items.indexOf(item), 1)
         }
+    };
+    this.loop = () => {
+
+    }
+    this.render = () => {
+        console.log(`<select>
+    ${this.items.map((val) => { return `<option>${val}</option>` }).join('\n\t')}
+</select>`);
     }
 }
-HtmlSelectElement.prototype = new HtmlElement();
-HtmlSelectElement.prototype.constructor = HtmlElement;
+
+function HtmlImage(src = '') {
+    this.src = src;
+    this.render = () => {
+        console.log(`<img "src=${this.src}" />`);
+    }
+}
+
+function extendAgain(Child, Parent) {
+    Child.prototype = new Parent();
+    Child.prototype.constructor = Child;
+}
+extendAgain(HtmlSelectElement, HtmlElement);
+extendAgain(HtmlImage, HtmlElement);
+
+const elements = [
+    new HtmlSelectElement([1, 2, 3]),
+    new HtmlImage('http://blabla')
+]
+for (let e of elements) {
+    e.render();
+}
