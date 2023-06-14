@@ -37,5 +37,5 @@ function HtmlSelectElement() {
         }
     }
 }
-HtmlSelectElement.prototype = Object.create(HtmlElement.prototype);
+HtmlSelectElement.prototype = new HtmlElement();
 HtmlSelectElement.prototype.constructor = HtmlElement;
